@@ -1,16 +1,34 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import People from "./People";
 
-function PageNav(props) {
+function PageNav({ page, setPage }) {
+  const goToPreviousPage = () => {
+    setPage(page - 1);
+  };
+
+  const goToNextPage = () => {
+    setPage(page + 1);
+  };
+
   return (
     <header className="flex justify-between items-center mb-4">
-      <p> Page: {props.page}</p>
+      <div>
+        <button
+          type="button"
+          className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-md mr-2"
+          onClick={goToPreviousPage}
+          disabled={page === 1} // Deshabilita el botón si estamos en la primera página
+        >
+          Previous Page
+        </button>
+      </div>
+      <p> Page: {page}</p>
       <button
         type="button"
         className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-md"
-        onClick={() => props.setPage(props.page + 1)}
+        onClick={goToNextPage}
       >
-        Page {props.page}
+        Next Page
       </button>
     </header>
   );
@@ -49,7 +67,6 @@ export function PeopleList() {
           })}
         </div>
       )}
-      <PageNav page={page} setPage={setPage} />
     </div>
   );
 }
