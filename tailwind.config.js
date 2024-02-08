@@ -7,7 +7,9 @@ module.exports = {
   // Or if using `src` directory:
   "./src/**/*.{js,ts,jsx,tsx,mdx}",],
   theme: {
-    extend: {},
+    extend: {fontFamily: {
+      'star-wars': ['Star Jedi', 'sans-serif'],
+    },},
   },
   plugins: [],
 }
