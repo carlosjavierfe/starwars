@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import genericAvatar from "../imagenes/generic-avatar.png";
-import lukeImage from "../imagenes/luke-skywalker.png";
-import leiaImage from "../imagenes/princess-leia.png";
-
-
-const characterImages = {
-  1: lukeImage,
-  5: leiaImage,
-};
 
 export function People({ people }) {
   const [showModal, setShowModal] = useState(false);
@@ -20,11 +13,13 @@ export function People({ people }) {
   useEffect(() => {
     const fetchData = async () => {
       // Fetch film titles
-      const filmsData = await Promise.all(people.films.map(async (filmUrl) => {
-        const response = await fetch(filmUrl);
-        const data = await response.json();
-        return data.title;
-      }));
+      const filmsData = await Promise.all(
+        people.films.map(async (filmUrl) => {
+          const response = await fetch(filmUrl);
+          const data = await response.json();
+          return data.title;
+        })
+      );
       setFilmTitles(filmsData);
 
       // Fetch species name
@@ -35,19 +30,23 @@ export function People({ people }) {
       }
 
       // Fetch vehicles names
-      const vehiclesData = await Promise.all(people.vehicles.map(async (vehicleUrl) => {
-        const response = await fetch(vehicleUrl);
-        const data = await response.json();
-        return data.name;
-      }));
+      const vehiclesData = await Promise.all(
+        people.vehicles.map(async (vehicleUrl) => {
+          const response = await fetch(vehicleUrl);
+          const data = await response.json();
+          return data.name;
+        })
+      );
       setVehiclesNames(vehiclesData);
 
       // Fetch starships names
-      const starshipsData = await Promise.all(people.starships.map(async (starshipUrl) => {
-        const response = await fetch(starshipUrl);
-        const data = await response.json();
-        return data.name;
-      }));
+      const starshipsData = await Promise.all(
+        people.starships.map(async (starshipUrl) => {
+          const response = await fetch(starshipUrl);
+          const data = await response.json();
+          return data.name;
+        })
+      );
       setStarshipsNames(starshipsData);
     };
 
@@ -57,24 +56,19 @@ export function People({ people }) {
   const showCharacterDetails = () => {
     setShowModal(true);
   };
+  
 
   return (
     <div className="text-center p-5">
       <h3>{people.name}</h3>
       <div className="flex justify-center">
-        {people.id && characterImages[people.id] ? (
-          <img
-            className="rounded-full w-64 h-64 mx-4"
-            src={characterImages[people.id]}
-            alt="Character"
-          />
-        ) : (
-          <img
-            className="rounded-full w-64 h-64 mx-4"
-            src={genericAvatar}
-            alt="Character"
-          />
-        )}
+        <Image
+          className="rounded-full w-64 h-64 mx-4"
+          src="/images/1/0.jpeg" // Ruta relativa a la imagen
+          alt="Character"
+          width={256}
+          height={256}
+        />
       </div>
       <p>
         <button
@@ -86,12 +80,27 @@ export function People({ people }) {
       </p>
       {showModal && (
         <div className="fixed inset-0 z-10 flex justify-center items-center bg-black bg-opacity-50">
-          <div className="bg- p-8 rounded-lg max-w-md">
-            <span className="absolute top-2 right-2 cursor-pointer" onClick={() => setShowModal(false)}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <div className="bg-white p-8 rounded-lg max-w-md border border-gray-500 text-black relative">
+            <button
+              className="absolute top-2 right-2"
+              onClick={() => setShowModal(false)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-black"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  className="text-black"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
-            </span>
+            </button>
             <h4 className="mb-4">Detalles del personaje:</h4>
             <p>Nombre: {people.name}</p>
             <p>Altura: {people.height}</p>
