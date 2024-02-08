@@ -22,7 +22,7 @@ function PageNav({ page, setPage }) {
           Previous Page
         </button>
       </div>
-      <p> Page: {page}</p>
+      <p className="text-4xl font-sans"> Personajes Page: {page}</p>
       <button
         type="button"
         className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-md"
